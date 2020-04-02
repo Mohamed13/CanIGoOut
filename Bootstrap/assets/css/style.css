@@ -1,1 +1,9 @@
-#mapid { height: 50em; }
+#mapid {
+    height: 50em;
+}
+
+
+#policeButton{
+    text-align: center !important;
+    width: 100%;
+}

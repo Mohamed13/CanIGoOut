@@ -17,7 +17,9 @@
             integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
             crossorigin=""></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
 </head>
 
 <body>
@@ -37,7 +39,11 @@
                 <div class="text-left about-me">
                     <p class="text-left">Retrouve la position des contrôles de police de ta ville sur la carte</p>
                 </div>
-            <div id="mapid"></div>
+            <div id="mapid">
+            </div>
+            <div>
+                <button  id="policeButton"  class="btn btn-danger btn-lg text-justify" type="button">Signaler un contrôle 	&nbsp;	&nbsp;	&nbsp;<img src="assets/icon/policeButton.png"/></button>
+            </div>
             <section class="portfolio-block photography">
             <div class="container">
                 <div class="row no-gutters">
