@@ -4,12 +4,16 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { SignalDialogComponent } from '../component/signal-dialog/signal-dialog.component';
 import { nextContext } from '@angular/core/src/render3';
+import * as firebase from 'firebase';
+
 
 @Component({
   selector: 'app-maps',
   templateUrl: './maps.component.html',
   styleUrls: ['./maps.component.scss']
 })
+
+
 export class MapsComponent implements OnInit {
 
   @ViewChild("map")
@@ -29,19 +33,23 @@ export class MapsComponent implements OnInit {
   currentLat: any;
   currentLong: any;
   isTracking: boolean;
+  currentPosition: any;
+  db: any;
+
+  arrayOfControls: [] = [];
 
   icon = {
     icon: L.icon({
-      iconSize: [25, 41],
+      iconSize: [10, 10],
       iconAnchor: [13, 0],
-      iconUrl: '../../assets/icons/policeButton.png',
-      shadowUrl: '../../assets/icons/policeButton.png'
+      iconUrl: '../../assets/icons/police_icon.png',
+      shadowUrl: '../../assets/icons/police_icon.png'
     })
   };
 
-  currentPosition;
-
-  constructor(private http: HttpClient, private dialog: MatDialog) { }
+  constructor(private http: HttpClient, private dialog: MatDialog) {
+    this.db = firebase.firestore();
+  }
 
   ngOnInit() {
     this.initMap();
@@ -55,11 +63,24 @@ export class MapsComponent implements OnInit {
       alert("Geolocation is not supported by this browser.");
     }
 
-    // this.markerIcon.icon =  new L.Icon({
-    //   iconUrl: '../../assets/icons/policeButton.png',
-    //   shadowUrl: '../../assets/icons/policeButton.png'
-    // });
-  }
+    debugger;
+    var _that = this;
+    this.db.collection("Controls").onSnapshot(function(snapshot) {
+      snapshot.docChanges().forEach(function(change) {
+          if (change.type === "added") {
+            var newMarker = new L.Marker([change.doc.data().position.latitude, change.doc.data().position.longitude], _that.icon);
+            _that.addMarker(newMarker);
+              // this.arrayOfControls += new L.Marker([change.doc.data().position.latitude, change.doc.data().position.longitude]);
+          }
+          if (change.type === "modified") {
+              console.log("Updated control");
+          }
+          if (change.type === "removed") {
+              console.log("Removed control");
+          }
+      });
+  });
+}
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -78,10 +99,10 @@ export class MapsComponent implements OnInit {
   showTrackingPosition(position) {
     this.currentLat = position.coords.latitude;
     this.currentLong = position.coords.longitude;
+    
+    this.currentPosition = new L.Marker([this.currentLat, this.currentLong]);
 
-    let marker = new L.Marker([this.currentLat, this.currentLong]);
-
-    marker.addTo(this.map);
+    this.currentPosition.addTo(this.map);
     this.map.setView([this.currentLat, this.currentLong], 15)
   }
 
@@ -94,6 +115,11 @@ export class MapsComponent implements OnInit {
       if (result == "myPosition") {
         let newMarker = new L.Marker([this.currentLat, this.currentLong], this.icon);
         this.addMarker(newMarker);
+        
+        firebase.database().ref('/Controls').set({
+          last_signalment: Date.now(),
+          position: { latitude: this.currentLat, longitude: this.currentLong }
+        });
       }
       else if (result == "chooseOnMap") {
         this.map.on("click", e => {
@@ -107,9 +133,11 @@ export class MapsComponent implements OnInit {
 
   public addMarker(marker) {
     marker.addTo(this.map); // add the marker onclick
+
   }
 
   public removeEvent() {
     this.map.removeEventListener("click");
   }
+
 }

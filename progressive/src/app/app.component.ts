@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'CanIGoOut';
 
   constructor() {
+    debugger;
     const config = {
       apiKey: "AIzaSyBdKO4PvQldfP-5VLW9qqbS6sbUvwpwL8M",
       authDomain: "canigoout-25b12.firebaseapp.com",
@@ -21,6 +22,20 @@ export class AppComponent {
       measurementId: "G-SH80DS4GD5"
     };
     firebase.initializeApp(config);
+    var db = firebase.firestore();
+    firebase.firestore().enablePersistence()
+      .catch(function (err) {
+        if (err.code == 'failed-precondition') {
+          // Multiple tabs open, persistence can only be enabled
+          // in one tab at a a time.
+          // ...
+        } else if (err.code == 'unimplemented') {
+          // The current browser does not support all of the
+          // features required to enable persistence
+          // ...
+        }
+      });
+    // Subsequent queries will use persistence, if it was enabled successfully
   }
 
 }
