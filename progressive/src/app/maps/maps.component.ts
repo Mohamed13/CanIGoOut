@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import * as L from 'leaflet';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-maps',
@@ -9,14 +9,76 @@ import {HttpClientModule} from '@angular/common/http';
 })
 export class MapsComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild("map")
+  public mapElement: ElementRef;
+
+  @Input("appId")
+  public appId: string;
+
+  @Input("appCode")
+  public appCode: string;
+
+  private map: any;
+
+  public srcTiles: string;
+
+  public height: string;
+  currentLat: any;
+  currentLong: any;
+  isTracking: boolean;
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    // Déclaration de la carte avec les coordonnées du centre et le niveau de zoom.
-    const myfrugalmap = L.map('frugalmap').setView([50.6311634, 3.0599573], 12);
+    this.initMap();
 
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: 'Frugal Map'
-    }).addTo(myfrugalmap);
+    if (navigator.geolocation) {
+      this.isTracking = true;
+      navigator.geolocation.watchPosition((position) => {
+        this.showTrackingPosition(position);
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
+
+  private initMap(): void {
+    this.map = L.map('map', {
+      center: [39.8282, -98.5795],
+      zoom: 3
+    });
+
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+
+    tiles.addTo(this.map);
+  }
+
+
+  public dropMarker(address: string) {
+    this.http.get("https://geocoder.api.here.com/6.2/geocode.json", {
+      params: {
+        app_id: this.appId,
+        app_code: this.appCode,
+        searchtext: address
+      }
+    }).subscribe(result => {
+      console.log(result);
+      let location = result;
+      // let marker = new L.Marker([location.Latitude, location.Longitude]);
+      // marker.addTo(this.map);
+    });
+  }
+
+  showTrackingPosition(position) {
+    console.log(`tracking postion:  ${position.coords.latitude} - ${position.coords.longitude}`);
+    this.currentLat = position.coords.latitude;
+    this.currentLong = position.coords.longitude;
+
+    let marker = new L.Marker([this.currentLat, this.currentLong]);
+
+    marker.addTo(this.map);
   }
 }
