@@ -10,7 +10,11 @@ function addMarker(location){
 }
 
 function onMapClick(e){
-    addMarker(e)
+    addMarker(e);
+    db.collection("Controls").add({
+        last_signalment: Date.now(),
+        position: {latitude:  e.latlng.lat, longitude :  e.latlng.lng}
+    });
     map.removeEventListener("click", onMapClick)
 }
 
@@ -19,7 +23,40 @@ let policeIcon = L.icon({
     iconAnchor:   [50, 50],
 });
 
-let policeButton = document.getElementById("policeButton")
+
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyBdKO4PvQldfP-5VLW9qqbS6sbUvwpwL8M",
+    authDomain: "canigoout-25b12.firebaseapp.com",
+    databaseURL: "https://canigoout-25b12.firebaseio.com",
+    projectId: "canigoout-25b12",
+    storageBucket: "canigoout-25b12.appspot.com",
+    messagingSenderId: "433104589309",
+    appId: "1:433104589309:web:d8ebcf3a82902ff503c994",
+    measurementId: "G-SH80DS4GD5"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
+
+db.collection("Controls").onSnapshot(function(snapshot) {
+    snapshot.docChanges().forEach(function(change) {
+        if (change.type === "added") {
+            addMarker({latlng : {lat : change.doc.data().position.latitude, lng : change.doc.data().position.longitude }} );
+            console.log("New city: ", change.doc.data().position);
+        }
+        if (change.type === "modified") {
+            console.log("Updated control");
+        }
+        if (change.type === "removed") {
+            console.log("Removed control");
+        }
+    });
+});
+
+
+let policeButton = document.getElementById("policeButton");
 
 policeButton.onclick = () => {
     Swal.fire({
