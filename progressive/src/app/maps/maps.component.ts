@@ -1,8 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { SignalDialogComponent } from '../component/signal-dialog/signal-dialog.component';
+import { nextContext } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-maps',
@@ -29,6 +30,17 @@ export class MapsComponent implements OnInit {
   currentLong: any;
   isTracking: boolean;
 
+  icon = {
+    icon: L.icon({
+      iconSize: [25, 41],
+      iconAnchor: [13, 0],
+      iconUrl: '../../assets/icons/policeButton.png',
+      shadowUrl: '../../assets/icons/policeButton.png'
+    })
+  };
+
+  currentPosition;
+
   constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -42,6 +54,11 @@ export class MapsComponent implements OnInit {
     } else {
       alert("Geolocation is not supported by this browser.");
     }
+
+    // this.markerIcon.icon =  new L.Icon({
+    //   iconUrl: '../../assets/icons/policeButton.png',
+    //   shadowUrl: '../../assets/icons/policeButton.png'
+    // });
   }
 
   private initMap(): void {
@@ -59,13 +76,13 @@ export class MapsComponent implements OnInit {
   }
 
   showTrackingPosition(position) {
-    console.log(`tracking postion:  ${position.coords.latitude} - ${position.coords.longitude}`);
     this.currentLat = position.coords.latitude;
     this.currentLong = position.coords.longitude;
 
     let marker = new L.Marker([this.currentLat, this.currentLong]);
 
     marker.addTo(this.map);
+    this.map.setView([this.currentLat, this.currentLong], 15)
   }
 
   openDialog(): void {
@@ -74,11 +91,25 @@ export class MapsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result == "myPosition") {
-
-      } else if (result == "chooseOnMap") {
-        alert("Choisissez un point sur la map");
+      if (result == "myPosition") {
+        let newMarker = new L.Marker([this.currentLat, this.currentLong], this.icon);
+        this.addMarker(newMarker);
+      }
+      else if (result == "chooseOnMap") {
+        this.map.on("click", e => {
+          let newMarker = new L.Marker([e.latlng.lat, e.latlng.lng], this.icon);
+          this.addMarker(newMarker);
+          this.removeEvent();
+        });
       }
     });
+  }
+
+  public addMarker(marker) {
+    marker.addTo(this.map); // add the marker onclick
+  }
+
+  public removeEvent() {
+    this.map.removeEventListener("click");
   }
 }
