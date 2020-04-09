@@ -1,7 +1,7 @@
 function onLocationFound(e) {
     var radius = e.accuracy;
     L.marker(e.latlng).addTo(map)
-        .bindPopup("Vous êtes dans environ " + radius + " mètre de ce point").openPopup();
+        .bindPopup("Vous êtes à environ " + Math.round(radius) + " mètre de ce point").openPopup();
     L.circle(e.latlng, Math.round(radius)).addTo(map);
     range = getGeohashRange(e.latlng.lat, e.latlng.lng, 5);
     db.collection("Controls")
