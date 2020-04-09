@@ -67,22 +67,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
     <script src="assets/js/theme.js"></script>
-    <script src="assets/js/serviceWorker.js"></script>
+    <script src="serviceWorker.js"></script>
     <script src="assets/js/map.js"></script>
     <script>
         if ("serviceWorker" in navigator) {
-        if (navigator.serviceWorker.controller) {
-        console.log("[PWA Builder] active service worker found, no need to register");
-        } else {
-        // Register the service worker
-        navigator.serviceWorker
-        .register("assets/js/serviceWorker.js", {
-        scope: "./"
-        })
-        .then(function (reg) {
-        console.log("[PWA Builder] Service worker has been registered for scope: " + reg.scope);
-        });
-        }
+            if (navigator.serviceWorker.controller) {
+                console.log("[PWA Builder] active service worker found, no need to register");
+            } else {
+                // Register the service worker
+                navigator.serviceWorker
+                .register("serviceWorker.js", {
+                scope: "./"
+                })
+                .then(function (reg) {
+                console.log("[PWA Builder] Service worker has been registered for scope: " + reg.scope);
+                });
+            }
     }
     </script>
 </body>
