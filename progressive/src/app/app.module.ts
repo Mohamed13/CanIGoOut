@@ -8,13 +8,16 @@ import { environment } from '../environments/environment';
 import { MapsComponent } from './maps/maps.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { SignalDialogComponent } from './component/signal-dialog/signal-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapsComponent
+    MapsComponent,
+    SignalDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -22,8 +25,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SignalDialogComponent]
 })
 export class AppModule { }

@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {MatDialog} from '@angular/material/dialog';
+import { SignalDialogComponent } from '../component/signal-dialog/signal-dialog.component';
 
 @Component({
   selector: 'app-maps',
@@ -27,7 +29,7 @@ export class MapsComponent implements OnInit {
   currentLong: any;
   isTracking: boolean;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.initMap();
@@ -49,27 +51,11 @@ export class MapsComponent implements OnInit {
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
+      maxZoom: 20,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
 
     tiles.addTo(this.map);
-  }
-
-
-  public dropMarker(address: string) {
-    this.http.get("https://geocoder.api.here.com/6.2/geocode.json", {
-      params: {
-        app_id: this.appId,
-        app_code: this.appCode,
-        searchtext: address
-      }
-    }).subscribe(result => {
-      console.log(result);
-      let location = result;
-      // let marker = new L.Marker([location.Latitude, location.Longitude]);
-      // marker.addTo(this.map);
-    });
   }
 
   showTrackingPosition(position) {
@@ -80,5 +66,19 @@ export class MapsComponent implements OnInit {
     let marker = new L.Marker([this.currentLat, this.currentLong]);
 
     marker.addTo(this.map);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(SignalDialogComponent, {
+      width: '350px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == "myPosition") {
+
+      } else if (result == "chooseOnMap") {
+        alert("Choisissez un point sur la map");
+      }
+    });
   }
 }
