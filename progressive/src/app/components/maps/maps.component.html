@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">CAN I GO OUT ?</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light text-center">
+  <a class="navbar-brand text-center" href="#">CAN I GO OUT ?</a>
 </nav>
 
 <div class="map-container">
@@ -7,6 +7,10 @@
     <div id="map"></div>
   </div>
 
-  <button type="button" class="btn btn-danger" (click)="openDialog()">Signaler</button>
-
 </div>
+
+<nav class="navbar fixed-bottom navbar-light bg-light text-center" (click)="openDialog()">
+  <a class="navbar-brand text-center" >
+      <img src="../../assets/icons/policeButton.png">
+  </a>
+</nav>
