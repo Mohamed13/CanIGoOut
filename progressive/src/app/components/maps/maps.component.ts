@@ -2,9 +2,9 @@ import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { SignalDialogComponent } from '../component/signal-dialog/signal-dialog.component';
 import { nextContext } from '@angular/core/src/render3';
 import * as firebase from 'firebase';
+import { SignalDialogComponent } from '../signal-dialog/signal-dialog.component';
 
 
 @Component({
@@ -63,14 +63,12 @@ export class MapsComponent implements OnInit {
       alert("Geolocation is not supported by this browser.");
     }
 
-    debugger;
     var _that = this;
     this.db.collection("Controls").onSnapshot(function(snapshot) {
       snapshot.docChanges().forEach(function(change) {
           if (change.type === "added") {
             var newMarker = new L.Marker([change.doc.data().position.latitude, change.doc.data().position.longitude], _that.icon);
             _that.addMarker(newMarker);
-              // this.arrayOfControls += new L.Marker([change.doc.data().position.latitude, change.doc.data().position.longitude]);
           }
           if (change.type === "modified") {
               console.log("Updated control");

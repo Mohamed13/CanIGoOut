@@ -10,7 +10,6 @@ export class AppComponent {
   title = 'CanIGoOut';
 
   constructor() {
-    debugger;
     const config = {
       apiKey: "AIzaSyBdKO4PvQldfP-5VLW9qqbS6sbUvwpwL8M",
       authDomain: "canigoout-25b12.firebaseapp.com",
