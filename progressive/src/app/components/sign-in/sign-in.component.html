@@ -1,41 +1,42 @@
+<div class="container-fluid">
+  <div class="row">
 
-<div class="row">
+    <div class="col-md-5">
 
-<div class="col-md-5">
+    </div>
+    <div class="login-wrapper col-md-4" fxLayoutAlign="center center">
 
-</div>
-<div class="login-wrapper col-md-4" fxLayout="row" fxLayoutAlign="center center">
+      <mat-card class="box">
+        <mat-card-header>
+          <mat-card-title>Connexion</mat-card-title>
+        </mat-card-header>
 
-  <mat-card class="box">
-    <mat-card-header>
-      <mat-card-title>Connexion</mat-card-title>
-    </mat-card-header>
+        <form class="example-form">
+          <mat-card-content>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Username" class="formControl" placeholder="Username" #userName required>
+            </mat-form-field>
 
-    <form class="example-form">
-      <mat-card-content>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Username" class="formControl" placeholder="Username" #userName required>
-        </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Password" class="formControl" placeholder="Password" #userPassword required>
+            </mat-form-field>
+          </mat-card-content>
+          <button mat-stroked-button color="accent" class="btn-block"
+            (click)="authService.SignIn(userName.value, userPassword.value)">Se connecter</button>
+        </form>
 
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password" class="formControl" placeholder="Password" #userPassword required>
-        </mat-form-field>
-      </mat-card-content>
-      <button mat-stroked-button color="accent" class="btn-block" (click)="authService.SignIn(userName.value, userPassword.value)">Se connecter</button>
-    </form>
+        <div class="formGroup">
+          <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
+            Connexion avec Google
+          </button>
+        </div>
 
-    <div class="formGroup">
-      <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-        Connexion avec Google
-      </button>
+      </mat-card>
+
     </div>
 
-  </mat-card>
+    <div class="col-md-4">
 
-</div>
-
-<div class="col-md-4">
-  
-</div>
-
+    </div>
+  </div>
 </div>

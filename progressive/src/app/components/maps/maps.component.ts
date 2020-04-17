@@ -81,7 +81,7 @@ export class MapsComponent implements OnInit {
   });
 }
 
-  private initMap(): void {
+  public  initMap(): void {
     this.map = L.map('map', {
       center: [39.8282, -98.5795],
       zoom: 3
@@ -95,7 +95,7 @@ export class MapsComponent implements OnInit {
     tiles.addTo(this.map);
   }
 
-  showTrackingPosition(position) {
+  public showTrackingPosition(position) {
     this.currentLat = position.coords.latitude;
     this.currentLong = position.coords.longitude;
     
