@@ -48,7 +48,7 @@ export class MapsComponent implements OnInit {
     })
   };
 
-  constructor(private http: HttpClient, private dialog: MatDialog, private authService: AuthService) {
+  constructor(private http: HttpClient, private dialog: MatDialog, public authService: AuthService) {
     this.db = firebase.firestore();
   }
 

@@ -4,13 +4,14 @@
     left: 0;
     right: 0;
     bottom: 0;
-    margin: 30px;
+    padding-top: 100px;
+
   }
   
   .map-frame {
     border: 2px solid black;
-    height: 70%;
-    margin-top: 7%;
+    height: 80%;
+
   }
 
   .navbar {
@@ -28,7 +29,5 @@
   }
 
   .btn {
-    margin-top: 5%;
     position: absolute;
-    margin-left: 35%;
   }
