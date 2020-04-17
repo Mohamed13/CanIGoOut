@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "progressive": {
+    "canigoout": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/progressive",
+            "outputPath": "dist/canigoout",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -67,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "progressive:build"
+            "browserTarget": "canigoout:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "progressive:build:production"
+              "browserTarget": "canigoout:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "progressive:build"
+            "browserTarget": "canigoout:build"
           }
         },
         "test": {
@@ -114,7 +114,7 @@
         }
       }
     },
-    "progressive-e2e": {
+    "canigoout-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -123,11 +123,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "progressive:serve"
+            "devServerTarget": "canigoout:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "progressive:serve:production"
+              "devServerTarget": "canigoout:serve:production"
             }
           }
         },
@@ -143,5 +143,5 @@
       }
     }
   },
-  "defaultProject": "progressive"
+  "defaultProject": "canigoout"
 }
