@@ -50,21 +50,17 @@
     <form class="example-form">
 
       <mat-card-content>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Username">
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="example-full-width formControl" placeholder="Email Address" #userEmail required>
           <input matInput placeholder="Email">
         </mat-form-field>
 
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="example-full-width formControl" placeholder="Password" #userPwd required>
           <input matInput placeholder="Password">
         </mat-form-field>
 
       </mat-card-content>
 
-      <button mat-stroked-button color="accent" class="btn-block">S'inscrire</button>
+      <button mat-stroked-button color="accent" class="btn-block" (click)="authService.SignUp(userEmail.value, userPwd.value)">S'inscrire</button>
 
     </form>
   </mat-card>

@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { nextContext } from '@angular/core/src/render3';
 import * as firebase from 'firebase';
 import { SignalDialogComponent } from '../signal-dialog/signal-dialog.component';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 
 @Component({
@@ -47,7 +48,7 @@ export class MapsComponent implements OnInit {
     })
   };
 
-  constructor(private http: HttpClient, private dialog: MatDialog) {
+  constructor(private http: HttpClient, private dialog: MatDialog, private authService: AuthService) {
     this.db = firebase.firestore();
   }
 
