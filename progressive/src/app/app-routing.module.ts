@@ -8,6 +8,9 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { SecureInnerPagesGuard } from './shared/guard/secure-inner-pages.guard.ts.guard';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { MapsComponent } from './components/maps/maps.component';
+import { CameraFeatureComponent } from './components/natives-features/camera-feature/camera-feature.component';
+import { VoiceFeatureComponent } from './components/natives-features/voice-feature/voice-feature.component';
+import { MotionSensorFeatureComponent } from './components/natives-features/motion-sensor-feature/motion-sensor-feature.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full'},
@@ -15,6 +18,9 @@ const routes: Routes = [
   { path: 'register-user', component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
   { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
   { path: 'maps', component: MapsComponent, canActivate: [AuthGuard] },
+  { path: 'camera-feature', component: CameraFeatureComponent, canActivate: [AuthGuard] },
+  { path: 'voice-feature', component: VoiceFeatureComponent, canActivate: [AuthGuard] },
+  { path: 'motion-sensor-feature', component: MotionSensorFeatureComponent, canActivate: [AuthGuard] },
 
 ];
 

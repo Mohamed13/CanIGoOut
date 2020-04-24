@@ -17,6 +17,11 @@ import { AuthService } from './shared/services/auth.service';
 import {MatCardModule} from '@angular/material/card';
 import { MatFormFieldModule, MatInputModule } from '@angular/material'
 import { MapsComponent } from './components/maps/maps.component';
+import { CameraFeatureComponent } from './components/natives-features/camera-feature/camera-feature.component';
+import { VoiceFeatureComponent } from './components/natives-features/voice-feature/voice-feature.component';
+import { SpeechModule } from 'ngx-speech';
+import { MotionSensorFeatureComponent } from './components/natives-features/motion-sensor-feature/motion-sensor-feature.component';
+import { CoreModule } from './core';
 
 @NgModule({
   declarations: [
@@ -26,6 +31,9 @@ import { MapsComponent } from './components/maps/maps.component';
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
+    CameraFeatureComponent,
+    VoiceFeatureComponent,
+    MotionSensorFeatureComponent
   ],
   imports: [
     BrowserModule,
@@ -36,9 +44,13 @@ import { MapsComponent } from './components/maps/maps.component';
     MatDialogModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    SpeechModule,
+    CoreModule
   ],
-  providers: [AuthService],
+  providers: [AuthService,
+    { provide: 'SPEECH_LANG', useValue: 'en-US' }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [SignalDialogComponent]
 })

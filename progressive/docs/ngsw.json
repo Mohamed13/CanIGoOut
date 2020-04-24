@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1587130359318,
+  "timestamp": 1587471745432,
   "index": "/CanIGoOut/index.html",
   "assetGroups": [
     {
@@ -11,7 +11,7 @@
         "/CanIGoOut/es2015-polyfills.7a91908ec2c637ccf9d0.js",
         "/CanIGoOut/favicon.ico",
         "/CanIGoOut/index.html",
-        "/CanIGoOut/main.e7d709ff5283f06ae4c7.js",
+        "/CanIGoOut/main.8deaf1fe1f88965259e6.js",
         "/CanIGoOut/polyfills.c19f07837da7031415ae.js",
         "/CanIGoOut/runtime.78ca88719dbb95d1a056.js",
         "/CanIGoOut/styles.9ac40d9c34e8b2665210.css"
@@ -54,10 +54,10 @@
     "/CanIGoOut/assets/icons/police_icon.png": "28d37ed065d365c356124c83bbce25936056d6da",
     "/CanIGoOut/es2015-polyfills.7a91908ec2c637ccf9d0.js": "207ad12781a7aba0fba8c5e505a18d35dd06a410",
     "/CanIGoOut/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/CanIGoOut/index.html": "6255f8e052cfea5dd5d8f88f70068096967b6d6f",
+    "/CanIGoOut/index.html": "e67a9e8d9753374b70cabb6feb649cdfd786db47",
     "/CanIGoOut/layers-2x.4f0283c6ce28e888000e.png": "152a162333e46d24f9d89f566312fc0c64011dee",
     "/CanIGoOut/layers.a6137456ed160d760698.png": "c9e7528e491a39232ba24a2706c6c739d6fb0f06",
-    "/CanIGoOut/main.e7d709ff5283f06ae4c7.js": "decdd467f0d6b1baaf2817b85cf420360c5b368d",
+    "/CanIGoOut/main.8deaf1fe1f88965259e6.js": "7e1972efddd484c38ad58af84710995f1da6cb75",
     "/CanIGoOut/marker-icon.2273e3d8ad9264b7daa5.png": "60a90bcbb2b42b7ddb4556db94eb7c1084b0e5da",
     "/CanIGoOut/polyfills.c19f07837da7031415ae.js": "31dba5e00bce089fa3ecb1df8e1f2c22b84d32cc",
     "/CanIGoOut/runtime.78ca88719dbb95d1a056.js": "b62956c2192bfe5516d6374e753773901ed50ec5",

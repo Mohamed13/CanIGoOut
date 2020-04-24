@@ -21,6 +21,8 @@ export class AppComponent {
       measurementId: "G-SH80DS4GD5"
     };
     firebase.initializeApp(config);
+    const messaging = firebase.messaging();
+    messaging.usePublicVapidKey("BGZO8JVqPxJd0xD9SpEgNigajX8qbWz_ggQMZYuPIZ_30_HPDeqmTaJ2SMD8U1z8aXbLiwqlwGjSfvrMI2TXLkw");
     var db = firebase.firestore();
     firebase.firestore().enablePersistence()
       .catch(function (err) {
