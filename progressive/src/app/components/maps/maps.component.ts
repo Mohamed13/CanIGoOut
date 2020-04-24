@@ -41,10 +41,8 @@ export class MapsComponent implements OnInit {
 
   icon = {
     icon: L.icon({
-      iconSize: [10, 10],
-      iconAnchor: [13, 0],
+      iconAnchor:   [50, 50],
       iconUrl: '../../assets/icons/police_icon.png',
-      shadowUrl: '../../assets/icons/police_icon.png'
     })
   };
 
