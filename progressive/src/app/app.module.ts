@@ -49,7 +49,7 @@ import { CoreModule } from './core';
     CoreModule
   ],
   providers: [AuthService,
-    { provide: 'SPEECH_LANG', useValue: 'en-US' }
+    { provide: 'SPEECH_LANG', useValue: 'en-US' },
   ],
   bootstrap: [AppComponent],
   entryComponents: [SignalDialogComponent]

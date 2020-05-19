@@ -1,35 +1,33 @@
-// Get Instance ID token. Initially this makes a network call, once retrieved
-// subsequent calls to getToken will return from cache.
-messaging.getToken().then((currentToken) => {
-    if (currentToken) {
-      sendTokenToServer(currentToken);
-      updateUIForPushEnabled(currentToken);
-    } else {
-      // Show permission request.
-      console.log('No Instance ID token available. Request permission to generate one.');
-      // Show permission UI.
-      updateUIForPushPermissionRequired();
-      setTokenSentToServer(false);
-    }
-  }).catch((err) => {
-    console.log('An error occurred while retrieving token. ', err);
-    showToken('Error retrieving Instance ID token. ', err);
-    setTokenSentToServer(false);
-  });
+// Give the service worker access to Firebase Messaging.
+// Note that you can only use Firebase Messaging here, other Firebase libraries
+// are not available in the service worker.
+importScripts('https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/7.14.0/firebase-messaging.js');
 
-  // Callback fired if Instance ID token is updated.
-messaging.onTokenRefresh(() => {
-    messaging.getToken().then((refreshedToken) => {
-      console.log('Token refreshed.');
-      // Indicate that the new Instance ID token has not yet been sent to the
-      // app server.
-      setTokenSentToServer(false);
-      // Send Instance ID token to app server.
-      sendTokenToServer(refreshedToken);
-      // ...
-    }).catch((err) => {
-      console.log('Unable to retrieve refreshed token ', err);
-      showToken('Unable to retrieve refreshed token ', err);
-    });
-  });
-  
+
+var firebaseConfig = {
+  apiKey: "AIzaSyBdKO4PvQldfP-5VLW9qqbS6sbUvwpwL8M",
+  authDomain: "canigoout-25b12.firebaseapp.com",
+  databaseURL: "https://canigoout-25b12.firebaseio.com",
+  projectId: "canigoout-25b12",
+  storageBucket: "canigoout-25b12.appspot.com",
+  messagingSenderId: "433104589309",
+  appId: "1:433104589309:web:d8ebcf3a82902ff503c994",
+  measurementId: "G-SH80DS4GD5"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const messaging = firebase.messaging();
+
+messaging.setBackgroundMessageHandler(function(payload) {
+  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  // Customize notification here
+  const notificationTitle = 'Background Message Title';
+  const notificationOptions = {
+    body: 'Background Message body.',
+    icon: '/firebase-logo.png'
+  };
+
+  return self.registration.showNotification(notificationTitle,
+    notificationOptions);
+});
